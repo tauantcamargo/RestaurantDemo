@@ -8,8 +8,17 @@
 import SwiftUI
 
 struct MenuView: View {
+    @State var sushiItems: [MenuItem] = [MenuItem]()
+    var dataService = DataService()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List(sushiItems) {sushiItem in
+            MenuItemRow(item: sushiItem)
+        }
+        .listStyle(.plain)
+        .onAppear(perform: {
+          sushiItems = dataService.getData()
+        })
     }
 }
 
