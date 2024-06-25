@@ -12,13 +12,21 @@ struct MenuView: View {
     var dataService = DataService()
     
     var body: some View {
-        List(sushiItems) {sushiItem in
-            MenuItemRow(item: sushiItem)
+        VStack(alignment: .leading) {
+            Text("Menu")
+                .font(.largeTitle)
+                .bold()
+            
+            List(sushiItems) {sushiItem in
+                MenuItemRow(item: sushiItem)
+            }
+            .onAppear(perform: {
+              sushiItems = dataService.getData()
+            })
+            .listStyle(.plain)
+            
         }
-        .listStyle(.plain)
-        .onAppear(perform: {
-          sushiItems = dataService.getData()
-        })
+        .padding()
     }
 }
 
